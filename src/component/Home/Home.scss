@@ -1,0 +1,25 @@
+.container-Home {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+
+    .content-home-left {
+        width: 26%;
+        background-color: rgba(42, 41, 41, 0.848);
+        border-radius: 10px;
+    }
+
+    .content-home-center {
+        width: 46%;
+        background-color: rgba(42, 41, 41, 0.848);
+        border-radius: 10px;
+    }
+
+    .content-home-right {
+        width: 26%;
+        background-color: rgba(42, 41, 41, 0.848);
+        border-radius: 10px;
+    }
+}
