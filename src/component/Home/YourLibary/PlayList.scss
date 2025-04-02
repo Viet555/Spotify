@@ -1,0 +1,29 @@
+.playlist-container {
+    .icon-header {
+        color: rgb(193, 190, 190);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+
+        .icon-search {
+            padding: 8px;
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                border-radius: 50%;
+                background-color: rgba(105, 105, 105, 0.849);
+            }
+        }
+
+        .recent {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                color: white;
+                transform: scale(1.1);
+            }
+        }
+    }
+}

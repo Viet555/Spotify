@@ -7,8 +7,8 @@ const HeaderApp = () => {
         <div className="content-header-left">
           <span>
             <i className="fa-solid fa-ellipsis"></i>
-            <i className="fa-solid fa-arrow-right"></i>
             <i className="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-right"></i>
           </span>
         </div>
         <div className="content-header-center">
