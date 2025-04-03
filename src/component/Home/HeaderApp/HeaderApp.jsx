@@ -1,6 +1,14 @@
 import "./HeaderApp.scss";
 import avt from "../../../assets/logo.png";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 const HeaderApp = () => {
+  const navigate = useNavigate();
+  const [activePath, setActivePath] = useState(location.pathname); // Theo dõi đường dẫn active
+  useEffect(() => {
+    setActivePath(location.pathname);
+  }, [location.pathname]);
+
   return (
     <>
       <div className="container-header">
@@ -13,7 +21,12 @@ const HeaderApp = () => {
         </div>
         <div className="content-header-center">
           <div className="content-center">
-            <div className="icon-home">
+            <div
+              className={
+                activePath === "/" ? `icon-home active-route` : "icon-home"
+              }
+              onClick={() => navigate("/")}
+            >
               <i className="fa-solid fa-house"></i>
             </div>
             <div className="search-bar">
@@ -30,7 +43,7 @@ const HeaderApp = () => {
           <div className="content-right">
             <i className="fa-solid fa-bell"></i>
             <i className="fa-solid fa-people-group"></i>
-            <img src={avt} />
+            <img src={avt} onClick={() => navigate("/login")} />
           </div>
         </div>
       </div>

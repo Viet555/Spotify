@@ -1,0 +1,112 @@
+.Login-container {
+    height: 100vh;
+    background: linear-gradient(to bottom, #1c1c1b, rgb(16, 16, 16));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Login-main {
+
+        width: 35em;
+        height: 35em;
+        background: linear-gradient(to top, #1c1c1b, rgb(16, 16, 16));
+        border-radius: 10px;
+
+        &.resgister {
+            height: 42em;
+        }
+
+        .header-Login {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            .icon-spotify {
+                cursor: pointer;
+                padding-top: 10px;
+                font-size: 34px;
+            }
+
+            .text-header {
+                font-size: 30px;
+                font-weight: 600;
+            }
+
+            .line {
+                margin: 0 auto;
+                width: 70%;
+                margin-top: 20px;
+                border-bottom: 1px solid rgba(124, 122, 122, 0.625);
+            }
+        }
+
+        .form-Login {
+
+            padding: 10px;
+            margin-top: 20px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+
+            input {
+                color: white;
+                margin-top: 5px;
+                background-color: #1c1c1b;
+                width: 20em;
+                height: 45px;
+            }
+
+            .btn-login {
+                margin-top: 10px;
+
+                button {
+                    background-color: rgb(66, 221, 66);
+                    width: 20em;
+                    height: 45px;
+                    padding: 5px;
+                    border: none;
+                    border-radius: 20px;
+                    font-weight: 600;
+                    transition: .2s ease-in-out;
+
+                    &:hover {
+                        background-color: rgb(98, 226, 98);
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            .forgot-pass {
+                margin-top: 15px;
+
+                span {
+                    cursor: pointer;
+                    border-bottom: 1px solid;
+
+                    &:hover {
+                        color: rgb(77, 196, 77);
+                    }
+                }
+            }
+
+            .signup-account {
+                display: flex;
+                gap: 6px;
+                margin-top: 20px;
+
+                .text-1 {
+                    color: rgba(160, 158, 158, 0.718);
+                }
+
+                .text-2 {
+                    cursor: pointer;
+                    border-bottom: 1px solid;
+
+                    &:hover {
+                        color: rgb(77, 196, 77);
+                    }
+                }
+            }
+        }
+    }
+}

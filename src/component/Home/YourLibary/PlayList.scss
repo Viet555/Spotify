@@ -1,4 +1,29 @@
 .playlist-container {
+    overflow-y: auto;
+    max-height: 100vh;
+
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+
+    // scrollbar-width: thin;
+    // scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+
     .icon-header {
         color: rgb(193, 190, 190);
         display: flex;
@@ -26,4 +51,39 @@
             }
         }
     }
+
+    .content-playlist {
+        border-radius: 10px;
+        padding: 6px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(62, 61, 61, 0.742);
+        }
+
+        .info-playlist {
+            display: flex;
+            color: white;
+
+            .name-playlist {
+                width: 260px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                /* Ẩn phần nội dung vượt quá */
+                text-overflow: ellipsis;
+            }
+
+            .type {
+                color: rgb(193, 190, 190);
+            }
+
+            img {
+                height: 60px;
+                width: 60px;
+            }
+        }
+    }
+
 }
