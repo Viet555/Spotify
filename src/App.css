@@ -1,6 +1,11 @@
+:root {
+  background-color: black;
+}
+
 .container-app {
   background-color: black;
   color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .active-route {

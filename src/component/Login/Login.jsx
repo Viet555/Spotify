@@ -1,7 +1,65 @@
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import * as action from "../../Store/Export";
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const infoUser = useSelector((state) => state.user);
+  const [formLogin, setFormLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+  useEffect(() => {
+    if (infoUser?.isauthentic === true) {
+      localStorage.setItem("accessToken", infoUser?.account?.accessToken);
+      localStorage.setItem("refreshToken", infoUser?.account?.refreshToken);
+      toast.success(`Welcome ${infoUser.account.email} to home`);
+      navigate("/");
+    }
+  }, [infoUser]);
+
+  const isValisInput = () => {
+    let newErrors = {};
+    if (!formLogin.email) {
+      newErrors.email = "Email has not been entered";
+    }
+
+    if (!formLogin.password) {
+      newErrors.password = "Password has not been entered";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  const handleOnchange = (e) => {
+    setFormLogin({
+      ...formLogin,
+      [e.target.name]: e.target.value,
+    });
+    if (e.target?.value) {
+      setErrors({
+        ...errors,
+        [e.target.name]: "",
+      });
+    }
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const valid = isValisInput();
+    if (!valid) {
+      toast.error("missing input");
+      return;
+    }
+
+    dispatch(action.UserLoginRedux(formLogin));
+  };
+
   return (
     <>
       <div className="Login-container">
@@ -15,15 +73,33 @@ const Login = () => {
           </div>
           <div className="form-Login">
             <div className="form-group my-2">
-              <label>Email or username</label>
-              <input className="form-control" />
+              <label>Email </label>
+              <input
+                className="form-control"
+                type="email"
+                name="email"
+                value={formLogin["email"]}
+                onChange={handleOnchange}
+              />
+              {errors.email && (
+                <p style={{ color: "red" }}>Email has not been entered</p>
+              )}
             </div>
             <div className="form-group my-2">
               <label>Password</label>
-              <input className="form-control" />
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                value={formLogin["password"]}
+                onChange={handleOnchange}
+              />
+              {errors.password && (
+                <p style={{ color: "red" }}>password has not been entered</p>
+              )}
             </div>
             <div className="btn-login">
-              <button>Login</button>
+              <button onClick={handleLogin}>Login</button>
             </div>
             <div className="forgot-pass">
               <span>Forgot your password?</span>

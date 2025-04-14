@@ -1,0 +1,48 @@
+.manage-container {
+    height: auto;
+    padding: 30px;
+    min-height: 100vh;
+
+
+    .manage-main {
+        padding-top: 10px;
+        border-radius: 10px;
+        background-color: rgba(67, 66, 66, 0.734);
+        min-height: 30em;
+
+        &.artist {
+            min-height: 35em;
+            width: 30em;
+            min-width: 23em;
+            height: auto;
+        }
+
+        .content-main {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+
+
+            input:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
+        }
+
+        .header-manage {
+            color: rgb(53, 204, 65);
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 35px;
+        }
+    }
+
+}
+
+.table-manage {
+    background-color: red !important;
+}

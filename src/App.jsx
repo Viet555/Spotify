@@ -6,18 +6,16 @@ import AppRoute from "./routes/AppRoutes.jsx";
 import HeaderApp from "./component/Home/HeaderApp/HeaderApp.jsx";
 import Home from "./component/Home/Home.jsx";
 import { useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [activePath, setActivePath] = useState(location.pathname); // Theo dõi đường dẫn active
-  useEffect(() => {
-    setActivePath(location.pathname);
-  }, [location.pathname]);
-
+  const location = useLocation();
   return (
     <>
       <div className="container-app">
         <div className="header-app">
-          {activePath === "/login" || activePath === "/register" ? (
+          {location.pathname === "/login" ||
+          location.pathname === "/register" ? (
             ""
           ) : (
             <HeaderApp />
@@ -28,6 +26,18 @@ function App() {
         </div>
         <div className="footer-app"></div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

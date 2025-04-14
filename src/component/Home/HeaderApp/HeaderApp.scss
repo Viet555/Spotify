@@ -125,6 +125,12 @@
             align-items: center;
             justify-content: center;
 
+            .toggle-sidebar {
+                margin-left: 60px;
+                background-color: rgb(41, 41, 41);
+                border-radius: 5px;
+            }
+
             i {
                 font-size: 17px;
                 cursor: pointer;
@@ -145,4 +151,8 @@
             }
         }
     }
+}
+
+.dropdown-toggle::after {
+    display: none !important;
 }
