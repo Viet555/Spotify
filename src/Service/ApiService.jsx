@@ -29,7 +29,18 @@ const ApiDeleteArtist = (artistId) => {
 const ApiGetSelectArtist = () => {
   return axios.get(`/api/get-select-Artist`);
 };
-
+const ApiCreateASong = (dataSong) => {
+  return axios.post(`/api/create-song`, dataSong);
+};
+const ApiGetAllSong = (limit, page) => {
+  return axios.get(`/api/get-all-Songs?limit=${limit}&page=${page}`);
+};
+const ApiDeleteSong = (songId) => {
+  return axios.delete(`/api/delete-a-song?id=${songId}`);
+};
+const ApiUpdateSong = (dataEdit) => {
+  return axios.put(`/api/update-a-song`, dataEdit);
+};
 export {
   UserLogin,
   ApiCreateUser,
@@ -41,4 +52,8 @@ export {
   ApiUpdateArtist,
   ApiDeleteArtist,
   ApiGetSelectArtist,
+  ApiCreateASong,
+  ApiGetAllSong,
+  ApiDeleteSong,
+  ApiUpdateSong,
 };

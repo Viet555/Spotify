@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { isPublicOption, genreOption } from "../../../constant";
+import { ApiCreateASong } from "../../../Service/ApiService";
+import { useDispatch, useSelector } from "react-redux";
+import * as action from "../../../Store/Export";
 const CreateSong = (props) => {
+  const { optionArtist, getAllSongsTable } = props;
+
   const getToday = () => {
     const today = new Date();
     return today.toISOString().split("T")[0];
@@ -17,6 +22,8 @@ const CreateSong = (props) => {
     lyrics: "",
     imagePrev: "",
     audioPrev: "",
+    duration: "",
+    artist: "",
   });
   const [errors, setErrors] = useState({
     audio: "",
@@ -28,15 +35,35 @@ const CreateSong = (props) => {
     lyrics: "",
     imagePrev: "",
     audioPrev: "",
+    duration: "",
+    artist: "",
   });
-
+  useEffect(() => {
+    if (isPublicOption && genreOption) {
+      setFormData({
+        ...formData,
+        genre: genreOption[0]?.value,
+        isPublic: isPublicOption[0]?.value,
+      });
+    }
+  }, [isPublicOption, genreOption]);
   const isValidInput = () => {
     const newErrors = {};
-    for (const key in formData) {
-      if (!formData[key]) {
-        newErrors[key] = `${key} has not been entered`;
+    const requiredFields = [
+      "audio",
+      "image",
+      "nameSong",
+      "isPublic",
+      "lyrics",
+      "genre",
+      "imagePrev",
+      "audioPrev",
+    ];
+    requiredFields.forEach((field) => {
+      if (!formData[field] || formData[field].trim() === "") {
+        newErrors[field] = `${field} has not been entered`;
       }
-    }
+    });
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return false;
@@ -55,9 +82,6 @@ const CreateSong = (props) => {
         [e.target.name]: "",
       });
   };
-
-  const handleSubmit = async (e) => {};
-
   const handleChooseFile = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -71,15 +95,56 @@ const CreateSong = (props) => {
     }
   };
   const handleChooseFileAudio = (e) => {
-    if (e?.target?.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () =>
+    const file = e?.target?.files?.[0];
+
+    if (file) {
+      const audio = document.createElement("audio");
+      audio.preload = "metadata";
+
+      audio.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(audio.src);
+        const duration = audio.duration;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: reader.result, // base64
+            audioPrev: file.name,
+            duration: duration,
+          }));
+        };
+        reader.readAsDataURL(file);
+      };
+
+      audio.src = URL.createObjectURL(file);
+    }
+  };
+  const handleSubmit = async (e) => {
+    let isValid = isValidInput();
+    if (!isValid) {
+      toast.error("Missing input please fill in the info ");
+      return;
+    } else {
+      let res = await ApiCreateASong(formData);
+      if (res?.EC === 0) {
+        toast.success(res.MES);
+
         setFormData({
-          ...formData,
-          [e.target.name]: reader.result,
-          audioPrev: e?.target?.files[0]?.name,
+          audio: "",
+          image: "",
+          nameSong: "",
+          genre: "",
+          releaseDate: getToday(),
+          isPublic: "",
+          lyrics: "",
+          imagePrev: "",
+          audioPrev: "",
+          duration: "",
+          artist: "",
         });
-      reader.readAsDataURL(e.target.files[0]);
+        getAllSongsTable();
+      }
     }
   };
 
@@ -103,12 +168,13 @@ const CreateSong = (props) => {
                 <p style={{ color: "red" }}>name Song has not been entered</p>
               )}
             </div>
+
             <div className="form-group col-2 ">
               <label>
                 genre<span style={{ color: "red" }}> (*)</span>
               </label>
               <Select
-                defaultInputValue={genreOption[0].label}
+                defaultInputValue={genreOption[0].value}
                 options={genreOption}
                 name="genre"
                 styles={{
@@ -148,7 +214,7 @@ const CreateSong = (props) => {
                 Is Public<span style={{ color: "red" }}> (*)</span>
               </label>
               <Select
-                defaultInputValue={isPublicOption[0].label}
+                defaultInputValue={isPublicOption[0].value}
                 options={isPublicOption}
                 name="isPublic"
                 styles={{
@@ -169,7 +235,7 @@ const CreateSong = (props) => {
                 <p style={{ color: "red" }}>isPublic has not been entered</p>
               )}
             </div>
-            <div className="form-group col-5 ">
+            <div className="form-group col-10 ">
               <label>
                 lyric<span style={{ color: "red" }}> (*)</span>
               </label>
@@ -183,12 +249,13 @@ const CreateSong = (props) => {
                 <p style={{ color: "red" }}>Lyric has not been entered</p>
               )}
             </div>
+          </div>
+          <div className="container">
             <div
-              className="form-group col-2"
+              className="form-group "
               style={{
                 display: "flex",
                 alignItems: "center",
-                flexDirection: "column",
               }}
             >
               <label
@@ -198,7 +265,7 @@ const CreateSong = (props) => {
                   margin: "30px 30px",
                   cursor: "pointer",
                   width: "120px",
-                  borderRadius: "12px",
+                  borderRadius: "8px",
                   textAlign: "center",
                   padding: "6px",
                 }}
@@ -223,15 +290,18 @@ const CreateSong = (props) => {
               )}
             </div>
 
-            <div className="form-group col-3 mx-5">
+            <div
+              className="form-group col-3 "
+              style={{ paddingBottom: "10px", margin: "30px 30px" }}
+            >
               <label
                 htmlFor="btn-avt"
                 style={{
                   border: "1px solid",
-                  margin: "30px 30px",
+
                   cursor: "pointer",
                   width: "120px",
-                  borderRadius: "12px",
+                  borderRadius: "8px",
                   textAlign: "center",
                   padding: "6px",
                 }}
@@ -246,7 +316,7 @@ const CreateSong = (props) => {
                 type="file"
                 onChange={(e) => handleChooseFile(e)}
               />
-              <div className="avt-prev mx-3">
+              <div className="avt-prev my-2">
                 {formData["imagePrev"] ? (
                   <div className="d-flex ">
                     <img
@@ -281,8 +351,27 @@ const CreateSong = (props) => {
                 )}
               </div>
             </div>
-          </div>
 
+            <div className="form-group col-3" style={{ margin: "30px 30px" }}>
+              <Select
+                options={optionArtist}
+                isMulti={true}
+                styles={{
+                  option: (base, state) => ({
+                    ...base,
+                    color: state.isSelected ? "white" : "black",
+                  }),
+                }}
+                onChange={(e) => {
+                  let dataOptionArtist = e.map((item) => item.value);
+                  setFormData({
+                    ...formData,
+                    artist: dataOptionArtist,
+                  });
+                }}
+              />
+            </div>
+          </div>
           <div className="text-center my-4">
             <button
               className="btn btn-success p-3"

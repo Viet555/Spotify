@@ -8,8 +8,8 @@ export const roleIdOption = [
   { value: "Admin", label: "Admin" },
 ];
 export const isPublicOption = [
-  { value: "True", label: "True" },
-  { value: "False", label: "False" },
+  { value: "true", label: "True" },
+  { value: "false", label: "False" },
 ];
 export const genreOption = [
   { value: "Pop", label: "Pop" },
@@ -18,4 +18,13 @@ export const genreOption = [
   { value: "Rock", label: "Rock" },
   { value: "EDM", label: "EDM" },
   { value: "Chil", label: "Chill" },
+  { value: "Remix", label: "Remix" },
 ];
+
+///
+export const formatDuration = (seconds) => {
+  if (!seconds) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+};

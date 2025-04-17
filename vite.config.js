@@ -7,5 +7,13 @@ export default defineConfig({
   // server: {
   //   port: 6000
   // },
-
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8089',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

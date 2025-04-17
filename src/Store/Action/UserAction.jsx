@@ -7,7 +7,6 @@ export const UserLoginRedux = (dataLog) => {
     let dataUser = await UserLogin(dataLog);
     try {
       if (dataUser?.EC === 0) {
-        console.log("checkdatalog", dataUser);
         dispatch({
           type: actiontypes.USER_LOGIN_SUCCESS,
           data: dataUser,

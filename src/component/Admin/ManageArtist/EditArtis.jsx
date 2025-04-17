@@ -70,7 +70,7 @@ const ModelEditArtist = (props) => {
     <>
       <Modal
         show={show}
-        onHide={() => setIsshowConfirm(!show)}
+        onHide={() => setShow(!show)}
         backdrop="static"
         keyboard={false}
         size="md"
