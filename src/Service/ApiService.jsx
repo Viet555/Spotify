@@ -41,6 +41,25 @@ const ApiDeleteSong = (songId) => {
 const ApiUpdateSong = (dataEdit) => {
   return axios.put(`/api/update-a-song`, dataEdit);
 };
+const ApiCreatePlaylist = (dataPlaylist) => {
+  return axios.post(`/api/create-playlist`, dataPlaylist);
+};
+const ApiGetAllPlaylist = (limit, page) => {
+  return axios.get(`/api/get-all-playlist?limit=${limit}&page=${page}`);
+};
+const ApiUpdatePlaylist = (dataEdit) => {
+  return axios.put(`/api/update-a-playlist`, dataEdit);
+};
+const ApiDeletePlaylist = (idplaylist) => {
+  return axios.delete(`/api/delete-a-playlist?id=${idplaylist}`);
+};
+const ApiGetPlaylistByCategory = (category) => {
+  return axios.get(`/api/get-playlist-by-category?category=${category}`);
+};
+const ApiGetDetailPlaylist = (playlistId) => {
+  return axios.get(`/api/get-detail-playlist?id=${playlistId}`);
+};
+
 export {
   UserLogin,
   ApiCreateUser,
@@ -56,4 +75,10 @@ export {
   ApiGetAllSong,
   ApiDeleteSong,
   ApiUpdateSong,
+  ApiCreatePlaylist,
+  ApiGetAllPlaylist,
+  ApiUpdatePlaylist,
+  ApiDeletePlaylist,
+  ApiGetPlaylistByCategory,
+  ApiGetDetailPlaylist,
 };

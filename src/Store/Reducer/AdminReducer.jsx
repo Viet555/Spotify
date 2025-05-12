@@ -1,16 +1,28 @@
 import actiontypes from "../Action/ActionType";
 const INITIAL_STATE = {
-  Song: {},
+  songOption: {},
+  // dataAllPlaylist: {},
 };
 
 const AdminReducer = (state = INITIAL_STATE, action) => {
   console.log(action);
   switch (action.type) {
-    // case actiontypes.GET_ALL_SONG_SUCCESS:
+    case actiontypes.FETCH_OPTION_SONG_SUCCESS:
+      return {
+        ...state,
+        songOption: action.data,
+      };
+    // case actiontypes.FETCH_ALL_PLAYLIST_SUCCESS:
     //   return {
     //     ...state,
-    //     song: data,
+    //     dataAllPlaylist: action.data,
     //   };
+    // case actiontypes.FETCH_ALL_PLAYLIST_FAIL:
+    //   return {
+    //     ...state,
+    //     dataAllPlaylist: null,
+    //   };
+
     // case actiontypes.GET_ALL_SONG_FAIL:
     //   return {
     //     ...state,

@@ -15,6 +15,7 @@ const INITIAL_STATE = {
 
   isauthentic: false,
   dataOptionArtist: [],
+  categoryPlaylist: [],
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {
@@ -61,7 +62,16 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         ...state,
         dataOptionArtist: [],
       };
-
+    case actiontypes.GET_PLAYLIST_BY_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        categoryPlaylist: action.data,
+      };
+    case actiontypes.GET_PLAYLIST_BY_CATEGORY_FAIL:
+      return {
+        ...state,
+        categoryPlaylist: [],
+      };
     default: // need this for default case
       return state;
   }

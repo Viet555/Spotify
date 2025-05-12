@@ -57,14 +57,8 @@ const SidebarManage = (props) => {
             }
             label="Manage playlist"
           >
-            <MenuItem component={<Link to="/ManageProduct" />}>
-              Manage Products
-            </MenuItem>
-            <MenuItem component={<Link to="/ManageMarkdown" />}>
-              Manage Markdown
-            </MenuItem>
-            <MenuItem component={<Link to="/Manage-order-product" />}>
-              Manage Orders
+            <MenuItem component={<Link to="/manage-playlist" />}>
+              CRUD Playlist
             </MenuItem>
           </SubMenu>
           <SubMenu

@@ -7,6 +7,7 @@ import DetailPlaylist from "../component/CenterView/DetailPlaylist/DetailPlaylis
 import ManageUser from "../component/Admin/ManageUser/ManageUser.jsx";
 import ManageArtist from "../component/Admin/ManageArtist/ManageArtist.jsx";
 import ManageSongs from "../component/Admin/ManageSongs/ManageSongs.jsx";
+import ManagePlaylist from "../component/Admin/ManagePlaylist/ManagePlaylist.jsx";
 
 const AppRoute = () => {
   return (
@@ -14,13 +15,14 @@ const AppRoute = () => {
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<DashboardCenter />} />
-          <Route path="detail-playlist" element={<DetailPlaylist />} />
+          <Route path="detail-playlist/:id" element={<DetailPlaylist />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Manage-User" element={<ManageUser />} />
         <Route path="/Manage-Artist" element={<ManageArtist />} />
         <Route path="/manage-songs" element={<ManageSongs />} />
+        <Route path="/manage-playlist" element={<ManagePlaylist />} />
       </Routes>
     </>
   );

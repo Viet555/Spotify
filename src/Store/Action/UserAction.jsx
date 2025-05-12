@@ -1,5 +1,9 @@
 import { toast } from "react-toastify";
-import { ApiGetSelectArtist, UserLogin } from "../../Service/ApiService";
+import {
+  ApiGetPlaylistByCategory,
+  ApiGetSelectArtist,
+  UserLogin,
+} from "../../Service/ApiService";
 import actiontypes from "./ActionType";
 
 export const UserLoginRedux = (dataLog) => {
@@ -46,6 +50,29 @@ export const fetchOptionArtist = () => {
         toast.error(res?.MES);
         dispatch({
           type: actiontypes.FETCH_OPTION_ARTIST_FAIL,
+        });
+      }
+    } catch (e) {
+      console.log("err", e);
+      dispatch({
+        type: actiontypes.FETCH_OPTION_ARTIST_FAIL,
+      });
+    }
+  };
+};
+export const getPlaylistByCategoryRedux = (category) => {
+  return async (dispatch, getState) => {
+    let res = await ApiGetPlaylistByCategory(category);
+    try {
+      if (res?.EC === 0) {
+        dispatch({
+          type: actiontypes.GET_PLAYLIST_BY_CATEGORY_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        toast.error(res?.MES);
+        dispatch({
+          type: actiontypes.GET_PLAYLIST_BY_CATEGORY_FAIL,
         });
       }
     } catch (e) {
